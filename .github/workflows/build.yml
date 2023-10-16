@@ -1,0 +1,41 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: "0 0 * * *"
+jobs:
+  flatpak:
+    name: "Flatpak"
+    runs-on: ubuntu-latest
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:gnome-44
+      options: --privileged
+    steps:
+    - uses: actions/checkout@v4
+    - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+      with:
+        bundle: com.moonlight_stream.Moonlight.flatpak
+        manifest-path: com.moonlight_stream.Moonlight.json
+        cache-key: flatpak-builder-${{ github.sha }}
+    - name: Download artifacts
+      uses: actions/download-artifact@v3
+      with:
+        path: dist
+    - name: Set current Moonlight commit
+      run: cd ".flatpak-builder/git/https_github.com_moonlight-stream_moonlight-qt.git" && echo "REV=$(git rev-parse HEAD)" >> $GITHUB_ENV
+    - name: Set current date as env variable
+      run: echo "NOW=$(date -u +'%Y-%m-%d %H:%M:%S') UTC" >> $GITHUB_ENV
+    - name: Nightly Release
+      uses: andelf/nightly-release@main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        body: |
+            Build date: ${{ env.NOW }}
+            Moonlight commit: [${{ env.REV }}](https://github.com/moonlight-stream/moonlight-qt/commit/${{ env.REV }})
+        prerelease: false
+        tag_name: nightly
+        name: 'Nightly Release'
+        files: dist/*/*.flatpak
