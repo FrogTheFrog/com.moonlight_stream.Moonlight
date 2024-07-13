@@ -40,7 +40,8 @@
 				{
 					"type": "git",
 					"url": "https://github.com/haasn/libplacebo.git",
-					"commit": "7b29435072143ee8b7e131947e055d3780ae4e47"
+					"tag": "v7.349.0",
+					"commit": "1fd3c7bde7b943fe8985c893310b5269a09b46c5"
 				},
 				{
 					"type": "patch",
@@ -132,7 +133,8 @@
 					"--disable-alsa",
 					"--disable-oss",
 					"--disable-sndio",
-					"--disable-rpath"
+					"--disable-rpath",
+					"--disable-shared"
 				]
 			},
 			"sources": [
@@ -140,7 +142,7 @@
 					"type": "git",
 					"url": "https://github.com/libsdl-org/SDL.git",
 					"//": "branch: SDL2",
-					"commit": "a0ec7c0906dfa9b0651fcaea52c12c1acb936562"
+					"commit": "3b7eafedb35829e6ba9d9024c051b81cd25fcfea"
 				}
 			]
 		},
