@@ -215,21 +215,7 @@
 				{
 					"type": "git",
 					"url": "https://github.com/moonlight-stream/moonlight-qt.git",
-					"disable-shallow-clone": true,
-					"tag": "v6.1.0",
-					"commit": "f786e94c7b2f943e24e65d7d74deb539b827fc84"
-				},
-				{
-					"type": "patch",
-					"path": "0001-Fix-null-window-on-Qt-6.9.patch"
-				},
-				{
-					"type": "patch",
-					"path": "0002-Fix-tooltip-layout-with-Qt-6.9.patch"
-				},
-				{
-					"type": "patch",
-					"path": "0003-Fix-incorrect-toolbar-color-on-Qt-6.9.patch"
+					"disable-shallow-clone": true
 				}
 			]
 		}
