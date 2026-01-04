@@ -1,0 +1,14 @@
+diff --git a/app/streaming/input/gamepad.cpp b/app/streaming/input/gamepad.cpp
+index e0d7f004..d5ce81d4 100644
+--- a/app/streaming/input/gamepad.cpp
++++ b/app/streaming/input/gamepad.cpp
+@@ -322,7 +322,8 @@ void SdlInputHandler::handleControllerButtonEvent(SDL_ControllerButtonEvent* eve
+     else {
+         state->buttons &= ~k_ButtonMap[event->button];
+ 
+-        if (event->button == SDL_CONTROLLER_BUTTON_START) {
++        static const bool enable_mouse_emulation{qgetenv("ENABLE_MOUSE_EMULATION") == "1"};
++        if (enable_mouse_emulation && event->button == SDL_CONTROLLER_BUTTON_START) {
+             if (SDL_GetTicks() - state->lastStartDownTime > MOUSE_EMULATION_LONG_PRESS_TIME) {
+                 if (state->mouseEmulationTimer != 0) {
+                     SDL_RemoveTimer(state->mouseEmulationTimer);
